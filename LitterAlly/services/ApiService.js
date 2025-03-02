@@ -8,10 +8,10 @@ const mockDatabase = {
   users: {
     current: {
       id: 'user1',
-      name: 'Alex Johnson',
-      email: 'alex.johnson@example.com',
-      joinDate: 'January 2025',
-      points: 280,
+      name: 'John ACMHack',
+      email: 'hack@uclaacm.com',
+      joinDate: 'March 2025',
+      points: 310,
       scans: 24,
       correctSorts: 22,
       badges: [
@@ -73,9 +73,9 @@ const mockDatabase = {
       binColor: 'Blue',
       points: 10,
       tips: [
-        'Remove cap and label if required in your area',
-        'Rinse before recycling',
-        'Flatten to save space'
+        'This recyclable has potential to become something useful in the future! Unlike you.',
+        'Oh wow, single-handedly keeping the recycling industry alive? Mother Earth says thanks… I guess.',
+        'I’m sure the fish will enjoy those microplastics.'
       ],
     },
     {
@@ -86,9 +86,9 @@ const mockDatabase = {
       binColor: 'Green',
       points: 5,
       tips: [
-        'Remove any stickers',
-        'Can be added to home compost',
-        'Will decompose within 2-5 weeks'
+        'At this point, your fridge is less of an appliance and more of a food graveyard.',
+        'At least this trash will actually break down faster than your willpower to quit single-use plastics.',
+        'You really bought that fresh produce just to let it die a slow, tragic death in your fridge?'
       ],
     },
     {
@@ -112,9 +112,9 @@ const mockDatabase = {
       binColor: 'Gray',
       points: 2,
       tips: [
-        'Cannot be recycled in most areas',
-        'Consider switching to reusable alternatives',
-        'Some specialized facilities may accept clean styrofoam'
+        'A polar bear just shed a single tear.',
+        'You know your trash is basically a time capsule for future archaeologists, right?',
+        'You generate so much waste, I wouldn’t be surprised if raccoons started paying rent at your place.'
       ],
     },
     {
@@ -125,7 +125,7 @@ const mockDatabase = {
       binColor: 'Red',
       points: 15,
       tips: [
-        'Never place in regular trash or recycling',
+        'That trash is almost as toxic as you!',
         'Take to designated drop-off locations',
         'Some electronic stores offer battery recycling'
       ],

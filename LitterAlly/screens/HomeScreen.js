@@ -1,13 +1,6 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  View, 
-  Text, 
-  ScrollView, 
-  TouchableOpacity, 
-  Image, 
-  useWindowDimensions 
-} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, 
+  Image, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -197,9 +190,9 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: 'D1FFBD',
+    borderRadius: 10,
+    padding: 10,
     marginHorizontal: 4,
     alignItems: 'center',
     shadowColor: '#000',

@@ -7,12 +7,14 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Screens
+
 import HomeScreen from './screens/HomeScreen';
 import ScanScreen from './screens/ScanScreen';
 import LearnScreen from './screens/LearnScreen';
 import CategoryDetailScreen from './screens/CategoryDetailScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ItemResultScreen from './screens/ItemResultScreen';
+import LoadingScreen from './screens/LoadingScreen';
 
 const Tab = createBottomTabNavigator();
 const LearnStack = createNativeStackNavigator();
@@ -54,39 +56,88 @@ function ScanStackScreen() {
   );
 }
 
+// export default function App() {
+//   return (
+//     <SafeAreaProvider>
+//       <NavigationContainer>
+//         <StatusBar style="auto" />
+//         <Tab.Navigator
+//           screenOptions={({ route }) => ({
+//             tabBarIcon: ({ focused, color, size }) => {
+//               let iconName;
+
+//               if (route.name === 'Home') {
+//                 iconName = focused ? 'home' : 'home-outline';
+//               } else if (route.name === 'Scan') {
+//                 iconName = focused ? 'scan' : 'scan-outline';
+//               } else if (route.name === 'Learn') {
+//                 iconName = focused ? 'book' : 'book-outline';
+//               } else if (route.name === 'Profile') {
+//                 iconName = focused ? 'person' : 'person-outline';
+//               }
+
+//               return <Ionicons name={iconName} size={size} color={color} />;
+//             },
+//             tabBarActiveTintColor: '#22c55e',
+//             tabBarInactiveTintColor: 'gray',
+//             headerShown: route.name === 'Home' ? true : false,
+//           })}
+//         >
+//           <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'LitterAlly' }} />
+//           <Tab.Screen name="Scan" component={ScanStackScreen} />
+//           <Tab.Screen name="Learn" component={LearnStackScreen} />
+//           <Tab.Screen name="Profile" component={ProfileScreen} />
+//         </Tab.Navigator>
+//       </NavigationContainer>
+//     </SafeAreaProvider>
+//   );
+// }
+
+const MainStack = createNativeStackNavigator()
+
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <StatusBar style="auto" />
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-
-              if (route.name === 'Home') {
-                iconName = focused ? 'home' : 'home-outline';
-              } else if (route.name === 'Scan') {
-                iconName = focused ? 'scan' : 'scan-outline';
-              } else if (route.name === 'Learn') {
-                iconName = focused ? 'book' : 'book-outline';
-              } else if (route.name === 'Profile') {
-                iconName = focused ? 'person' : 'person-outline';
-              }
-
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: '#22c55e',
-            tabBarInactiveTintColor: 'gray',
-            headerShown: route.name === 'Home' ? true : false,
-          })}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'LitterAlly' }} />
-          <Tab.Screen name="Scan" component={ScanStackScreen} />
-          <Tab.Screen name="Learn" component={LearnStackScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
+        <MainStack.Navigator initialRouteName="Loading">
+          <MainStack.Screen name="Loading" component={LoadingScreen} options={{ headerShown: false }} />
+          <MainStack.Screen name="MainTabs" component={MainTabNavigator} options={{ headerShown: false }} />
+        </MainStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
-  );
+  )
 }
+
+function MainTabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName
+
+          if (route.name === "Home") {
+            iconName = focused ? "home" : "home-outline"
+          } else if (route.name === "Scan") {
+            iconName = focused ? "scan" : "scan-outline"
+          } else if (route.name === "Learn") {
+            iconName = focused ? "book" : "book-outline"
+          } else if (route.name === "Profile") {
+            iconName = focused ? "person" : "person-outline"
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />
+        },
+        tabBarActiveTintColor: "#22c55e",
+        tabBarInactiveTintColor: "gray",
+        headerShown: route.name === "Home" ? true : false,
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: "LitterAlly" }} />
+      <Tab.Screen name="Scan" component={ScanStackScreen} />
+      <Tab.Screen name="Learn" component={LearnStackScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  )
+}
+
