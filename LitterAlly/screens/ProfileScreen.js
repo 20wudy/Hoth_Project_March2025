@@ -119,8 +119,9 @@ export default function ProfileScreen({ navigation }) {
 
         {/* Settings Section */}
         <View style={styles.settingsSection}>
-          <Text style={styles.sectionTitle}>Settings</Text>
+          <Text style={styles.sectionTitle}>Upcoming Features</Text>
 
+          {/* These are features that we are planning to implement in the future */}
           <View style={styles.settingCard}>
             <View style={styles.settingInfo}>
               <Ionicons name="notifications-outline" size={22} color="#64748b" style={styles.settingIcon} />
@@ -173,9 +174,10 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.actionText}>Account Settings</Text>
           </TouchableOpacity>
 
+          {/* The logout feature (beta) is working successfully but we will update it once an account functionality is added */}
           <TouchableOpacity style={[styles.actionButton, styles.logoutButton]} onPress={handleLogout}>
             <Ionicons name="log-out-outline" size={20} color="#ef4444" style={styles.actionIcon} />
-            <Text style={[styles.actionText, styles.logoutText]}>Log Out</Text>
+            <Text style={[styles.actionText, styles.logoutText]}>Log Out (Working)</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
