@@ -5,7 +5,8 @@ import {
   Text, 
   TouchableOpacity,
   ActivityIndicator,
-  Alert
+  Alert,
+  Image 
 } from 'react-native';
 
 import { Camera } from 'expo-camera';
@@ -15,50 +16,48 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ScanScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [type, setType] = useState(null); // Initially set type to null
   const [isScanning, setIsScanning] = useState(false);
   const cameraRef = useRef(null);
   const insets = useSafeAreaInsets();
+
+  // State for captured image and trash type
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [trashType, setTrashType] = useState(null);
+  const trashTypes = ['Recyclable', 'Compostable', 'Landfill', 'Hazardous Waste'];
+  let trashTypeIndex = useRef(0);
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
+
+      // Set the initial camera type after permissions are granted
+      if (status === 'granted') {
+        setType(Camera.Constants.Type.back); 
+      }
     })();
-  }, []);
+  },);
 
   const handleTakePicture = async () => {
     if (cameraRef.current) {
       try {
         setIsScanning(true);
         const photo = await cameraRef.current.takePictureAsync();
-        
-        // Simulating item recognition with timeout
-        setTimeout(() => {
-          setIsScanning(false);
-          
-          // Mock identification result
-          const mockResult = {
-            item: 'Plastic Bottle',
-            category: 'Recyclable',
-            binColor: 'Blue',
-            points: 10,
-            tips: [
-              'Remove cap and label if required in your area',
-              'Rinse before recycling',
-              'Flatten to save space'
-            ],
-            imageUri: photo.uri
-          };
-          
-          navigation.navigate('ItemResult', { result: mockResult });
-        }, 2000);
+        setCapturedImage(photo); // Set the captured image
+        setIsScanning(false);
       } catch (error) {
         console.error(error);
         setIsScanning(false);
         Alert.alert('Error', 'Failed to take picture. Please try again.');
       }
     }
+  };
+
+  // Function to cycle through trash types
+  const classifyTrash = () => {
+    setTrashType(trashTypes[trashTypeIndex.current]);
+    trashTypeIndex.current = (trashTypeIndex.current + 1) % trashTypes.length;
   };
 
   if (hasPermission === null) {
@@ -72,59 +71,71 @@ export default function ScanScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Camera 
-        style={styles.camera} 
-        type={type}
-        ref={cameraRef}
-      >
-        <View style={[styles.controlsContainer, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => navigation.goBack()}
-            >
-              <Ionicons name="arrow-back" size={24} color="white" />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Scan Item</Text>
-            <TouchableOpacity
-              style={styles.flipButton}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Ionicons name="camera-reverse-outline" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
-          
-          {}
-          <View style={styles.scanFrameContainer}>
-            <View style={styles.scanFrame} />
-            <Text style={styles.scanInstructions}>
-              Position the item in the center of the frame
-            </Text>
-          </View>
-          
-          {}
-          <View style={styles.captureContainer}>
-            {isScanning ? (
-              <View style={styles.loadingButton}>
-                <ActivityIndicator size="large" color="white" />
-              </View>
-            ) : (
-              <TouchableOpacity
-                style={styles.captureButton}
-                onPress={handleTakePicture}
-              >
-                <View style={styles.captureButtonInner} />
-              </TouchableOpacity>
-            )}
-          </View>
+
+      {/* Conditionally render Camera or captured image */}
+      {capturedImage ? ( 
+        <View style={styles.camera}>
+          <Image source={{ uri: capturedImage.uri }} style={styles.capturedImage} />
+          {trashType && (
+            <Text style={styles.trashTypeText}>This is {trashType}</Text>
+          )}
+          <TouchableOpacity style={styles.classifyButton} onPress={classifyTrash}>
+            <Text style={styles.classifyButtonText}>Classify Trash</Text>
+          </TouchableOpacity>
         </View>
-      </Camera>
+      ) : (
+        <Camera 
+          style={styles.camera} 
+          type={type}
+          ref={cameraRef}
+        >
+          <View style={[styles.controlsContainer, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+            <View style={styles.header}>
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons name="arrow-back" size={24} color="white" />
+              </TouchableOpacity>
+              <Text style={styles.headerTitle}>Scan Item</Text>
+              <TouchableOpacity
+                style={styles.flipButton}
+                onPress={() => {
+                  setType(
+                    type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back
+                  );
+                }}
+              >
+                <Ionicons name="camera-reverse-outline" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.scanFrameContainer}>
+              <View style={styles.scanFrame} />
+              <Text style={styles.scanInstructions}>
+                Position the item in the center of the frame
+              </Text>
+            </View>
+
+            <View style={styles.captureContainer}>
+              {isScanning ? (
+                <View style={styles.loadingButton}>
+                  <ActivityIndicator size="large" color="white" />
+                </View>
+              ) : (
+                <TouchableOpacity
+                  style={styles.captureButton}
+                  onPress={handleTakePicture}
+                >
+                  <View style={styles.captureButtonInner} />
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </Camera>
+      )}
     </View>
   );
 }
@@ -206,5 +217,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(34, 197, 94, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  // Styles for the captured image and trash type text
+  capturedImage: {
+    flex: 1,
+    resizeMode: 'contain', 
+  },
+  trashTypeText: {
+    position: 'absolute',
+    bottom: 100,
+    alignSelf: 'center',
+    fontSize: 20,
+    color: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  classifyButton: {
+    position: 'absolute',
+    bottom: 30,
+    alignSelf: 'center',
+    backgroundColor: '#22c55e',
+    padding: 15,
+    borderRadius: 8,
+  },
+  classifyButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
