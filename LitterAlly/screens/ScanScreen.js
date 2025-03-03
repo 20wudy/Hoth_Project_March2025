@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   StyleSheet, 
   View, 
@@ -9,14 +9,17 @@ import {
   Image 
 } from 'react-native';
 
-import { Camera } from 'expo-camera';
+import {
+  CameraView,
+  useCameraPermissions
+} from "expo-camera";
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ScanScreen({ navigation }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(null); // Initially set type to null
+  const [permission, requestPermission] = useCameraPermissions();
+  const [facing, setFacing] = useState('back'); // Use string values 'back' or 'front'
   const [isScanning, setIsScanning] = useState(false);
   const cameraRef = useRef(null);
   const insets = useSafeAreaInsets();
@@ -26,18 +29,6 @@ export default function ScanScreen({ navigation }) {
   const [trashType, setTrashType] = useState(null);
   const trashTypes = ['Recyclable', 'Compostable', 'Landfill', 'Hazardous Waste'];
   let trashTypeIndex = useRef(0);
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-
-      // Set the initial camera type after permissions are granted
-      if (status === 'granted') {
-        setType(Camera.Constants.Type.back); 
-      }
-    })();
-  },);
 
   const handleTakePicture = async () => {
     if (cameraRef.current) {
@@ -60,12 +51,24 @@ export default function ScanScreen({ navigation }) {
     trashTypeIndex.current = (trashTypeIndex.current + 1) % trashTypes.length;
   };
 
-  if (hasPermission === null) {
+  // Toggle between front and back camera
+  const toggleCameraFacing = () => {
+    setFacing(current => (current === 'back' ? 'front' : 'back'));
+  };
+
+  if (!permission) {
     return <View style={styles.container}><Text>Requesting camera permission...</Text></View>;
   }
   
-  if (hasPermission === false) {
-    return <View style={styles.container}><Text>No access to camera. Please enable camera permissions.</Text></View>;
+  if (!permission.granted) {
+    return (
+      <View style={styles.container}>
+        <Text>No access to camera. Please enable camera permissions.</Text>
+        <TouchableOpacity style={styles.permissionButton} onPress={requestPermission}>
+          <Text style={styles.permissionButtonText}>Grant Permission</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   return (
@@ -84,9 +87,9 @@ export default function ScanScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       ) : (
-        <Camera 
+        <CameraView 
           style={styles.camera} 
-          type={type}
+          facing={facing}
           ref={cameraRef}
         >
           <View style={[styles.controlsContainer, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -100,13 +103,7 @@ export default function ScanScreen({ navigation }) {
               <Text style={styles.headerTitle}>Scan Item</Text>
               <TouchableOpacity
                 style={styles.flipButton}
-                onPress={() => {
-                  setType(
-                    type === Camera.Constants.Type.back
-                      ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back
-                  );
-                }}
+                onPress={toggleCameraFacing}
               >
                 <Ionicons name="camera-reverse-outline" size={24} color="white" />
               </TouchableOpacity>
@@ -134,7 +131,7 @@ export default function ScanScreen({ navigation }) {
               )}
             </View>
           </View>
-        </Camera>
+        </CameraView>
       )}
     </View>
   );
@@ -144,9 +141,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   camera: {
     flex: 1,
+    width: '100%',
   },
   controlsContainer: {
     flex: 1,
@@ -244,6 +244,17 @@ const styles = StyleSheet.create({
   classifyButtonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  permissionButton: {
+    backgroundColor: '#22c55e',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
+  },
+  permissionButtonText: {
+    color: 'white',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
