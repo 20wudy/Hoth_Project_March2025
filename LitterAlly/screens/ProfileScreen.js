@@ -17,15 +17,21 @@ export default function ProfileScreen({ navigation }) {
     joinDate: "March 2025",
     stats: {
       totalScans: 24,
-      correctSorts: 22,
+      correctSorts: 0,
       totalPoints: 280,
     },
     badges: [
-      { id: "1", name: "Trash Talker", icon: "ribbon-outline", unlocked: true },
-      { id: "2", name: "Bin-ternet Famous", icon: "leaf-outline", unlocked: true },
-      { id: "3", name: "Dumpster Disciple", icon: "shield-outline", unlocked: false },
-      { id: "4", name: "Lord of the Bins", icon: "planet-outline", unlocked: false },
-    ],
+      { id: "1", name: "5 XP: Trash Talker", icon: "ribbon-outline", unlocked: true },
+      { id: "2", name: "25 XP: Bin There, Done That", icon: "leaf-outline", unlocked: true },
+      { id: "3", name: "50 XP: Trash Panda", icon: "shield-outline", unlocked: false },
+      { id: "4", name: "75 XP: Scrap Pro Quo", icon: "planet-outline", unlocked: false },
+      { id: "5", name: "100 XP: Verified Binfluencer", icon: "planet-outline", unlocked: false },
+      { id: "6", name: "150 XP: Junk Jedi", icon: "planet-outline", unlocked: false },
+      { id: "7", name: "200 XP: Compost Commander", icon: "planet-outline", unlocked: false },
+      { id: "8", name: "300 XP: Lord of the Bins", icon: "planet-outline", unlocked: false },
+      { id: "9", name: "400 XP: LitterAlly Unstoppable", icon: "planet-outline", unlocked: false },
+      { id: "10", name: "500 XP: You’re A True Litter Ally", icon: "planet-outline", unlocked: false }
+    ],    
   }
 
   const handleLogout = () => {

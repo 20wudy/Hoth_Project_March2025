@@ -12,9 +12,9 @@ export default function HomeScreen({ navigation }) {
       <ScrollView>
         {/* Hero Section */}
         <View style={styles.heroSection}>
-          <Text style={styles.heroTitle}>Learn to Sort Trash Correctly</Text>
+          <Text style={styles.heroTitle}>Trash cans are confusing</Text>
           <Text style={styles.heroSubtitle}>
-            Interactive learning to help you become a recycling expert and protect our planet.
+            Clearly, you need help. Let this app teach you how to recycle properly.
           </Text>
           
           <View style={styles.buttonContainer}>
@@ -22,13 +22,13 @@ export default function HomeScreen({ navigation }) {
               style={styles.primaryButton} 
               onPress={() => navigation.navigate('Scan')}
             >
-              <Text style={styles.primaryButtonText}>Start Scanning</Text>
+              <Text style={styles.primaryButtonText}> Start scanning </Text>
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.outlineButton} 
               onPress={() => navigation.navigate('Learn')}
             >
-              <Text style={styles.outlineButtonText}>Learn Categories</Text>
+              <Text style={styles.outlineButtonText}>Learn more</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -38,7 +38,7 @@ export default function HomeScreen({ navigation }) {
           <FeatureCard 
             icon="scan-outline" 
             title="Scan & Identify" 
-            description="Use your camera to scan items and learn how to sort them properly."
+            description="Wave your camera at an object and I'll tell you what to do with it."
             color="#10b981"
             bgColor="#d1fae5"
           />
@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation }) {
           <FeatureCard 
             icon="checkmark-circle-outline" 
             title="Learn Categories" 
-            description="Explore different waste categories and learn what goes where."
+            description="Useless if both lids go to the same place."
             color="#3b82f6"
             bgColor="#dbeafe"
           />
@@ -54,7 +54,7 @@ export default function HomeScreen({ navigation }) {
           <FeatureCard 
             icon="trophy-outline" 
             title="Earn Points" 
-            description="Get rewarded for correct sorting and track your environmental impact."
+            description="Congrats! Your prize for doing the bare minimum <3."
             color="#f59e0b"
             bgColor="#fef3c7"
           />
@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }) {
 
         {/* Impact Stats */}
         <View style={styles.statsSection}>
-          <Text style={styles.sectionTitle}>Your Impact</Text>
+          <Text style={styles.sectionTitle}>Your trash stats</Text>
           <View style={styles.statsContainer}>
             <View style={styles.statCard}>
               <Text style={styles.statNumber}>0</Text>
@@ -70,11 +70,11 @@ export default function HomeScreen({ navigation }) {
             </View>
             <View style={styles.statCard}>
               <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Points Earned</Text>
+              <Text style={styles.statLabel}>Points Earned </Text>
             </View>
             <View style={styles.statCard}>
               <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Correct Sorts</Text>
+              <Text style={styles.statLabel}>Correct Sorts </Text>
             </View>
           </View>
         </View>
@@ -86,7 +86,7 @@ export default function HomeScreen({ navigation }) {
 function FeatureCard({ icon, title, description, color, bgColor }) {
   return (
     <View style={styles.featureCard}>
-      <View style={[styles.iconContainer, { backgroundColor: bgColor }]}>
+      <View style={[styles.iconContainer, { backgroundColor: bgColor }]}> 
         <Ionicons name={icon} size={24} color={color} />
       </View>
       <Text style={styles.featureTitle}>{title}</Text>

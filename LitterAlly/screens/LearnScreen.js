@@ -17,7 +17,7 @@ const categories = [
     name: 'Recyclables',
     color: '#3b82f6',
     icon: 'refresh-circle-outline',
-    description: 'Materials that can be reprocessed into new products',
+    description: 'Fancy trash that gets a second chance at life.',
     binColor: 'Blue',
     items: ['Paper', 'Cardboard', 'Plastic bottles', 'Glass jars', 'Aluminum cans'],
   },
@@ -26,7 +26,7 @@ const categories = [
     name: 'Compostables',
     color: '#10b981',
     icon: 'leaf-outline',
-    description: 'Organic matter that can decompose naturally',
+    description: 'Nature’s leftovers—because even banana peels deserve a glow-up.',
     binColor: 'Green',
     items: ['Food scraps', 'Yard waste', 'Coffee grounds', 'Eggshells', 'Paper towels'],
   },
@@ -35,7 +35,7 @@ const categories = [
     name: 'Landfill Waste',
     color: '#6b7280',
     icon: 'trash-outline',
-    description: 'Items that cannot be recycled or composted',
+    description: 'The garbage graveyard—where bad choices go to stay forever.',
     binColor: 'Gray',
     items: ['Styrofoam', 'Chip bags', 'Candy wrappers', 'Diapers', 'Pet waste'],
   },
@@ -44,7 +44,7 @@ const categories = [
     name: 'Hazardous Waste',
     color: '#ef4444',
     icon: 'warning-outline',
-    description: 'Materials requiring special disposal methods',
+    description: 'Dangerous junk—handle with care unless you want superpowers (not the good kind).',
     binColor: 'Red',
     items: ['Batteries', 'Paint', 'Electronics', 'Light bulbs', 'Chemicals'],
   },
@@ -74,7 +74,7 @@ export default function LearnScreen({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.title}>Waste Categories</Text>
         <Text style={styles.subtitle}>
-          Learn about different types of waste and how to properly sort them
+          Because sorting trash should be easier than your last relationship.
         </Text>
       </View>
       
