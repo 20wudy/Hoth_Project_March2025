@@ -96,7 +96,7 @@ export default function ProfileScreen({ navigation }) {
           <View style={styles.statsGrid}>
             <View style={styles.statCard}>
               <Text style={styles.statNumber}>{userData.stats.totalScans}</Text>
-              <Text style={styles.statLabel}>Total Scans</Text>
+              <Text style={styles.statLabel}>Items Sorted</Text>
             </View>
 
             <View style={styles.statCard}>

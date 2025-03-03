@@ -44,7 +44,7 @@ const categories = [
     name: 'Hazardous Waste',
     color: '#ef4444',
     icon: 'warning-outline',
-    description: 'Dangerous junk—handle with care unless you want superpowers (not the good kind).',
+    description: 'Dangerous junk—handle with care unless you want superpowers (hospitalization).',
     binColor: 'Red',
     items: ['Batteries', 'Paint', 'Electronics', 'Light bulbs', 'Chemicals'],
   },

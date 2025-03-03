@@ -56,7 +56,7 @@ export default function ScanScreen({ navigation }) {
         "At this point, your fridge is less of an appliance and more of a food graveyard.",
         "Do you even finish your meals, or do you just contribute to the circle of life like a discount Lion King?",
         "At least this trash will actually break down faster than your willpower to quit single-use plastics.",
-        "Congrats! Your garbage is officially more biodegradable than your last situationship."
+        "Congrats! Your garbage is officially more biodegradable than your last situationship.",
       ]
     },
     { 

@@ -12,7 +12,7 @@ export default function HomeScreen({ navigation }) {
       <ScrollView>
         {/* Hero Section */}
         <View style={styles.heroSection}>
-          <Text style={styles.heroTitle}>Trash cans are confusing</Text>
+          <Text style={styles.heroTitle}>Get help sorting your trash</Text>
           <Text style={styles.heroSubtitle}>
             Clearly, you need help. Let this app teach you how to recycle properly.
           </Text>
@@ -70,11 +70,11 @@ export default function HomeScreen({ navigation }) {
             </View>
             <View style={styles.statCard}>
               <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Points Earned </Text>
+              <Text style={styles.statLabel}>Corret Sorts </Text>
             </View>
             <View style={styles.statCard}>
               <Text style={styles.statNumber}>0</Text>
-              <Text style={styles.statLabel}>Correct Sorts </Text>
+              <Text style={styles.statLabel}>Points Earned  </Text>
             </View>
           </View>
         </View>
